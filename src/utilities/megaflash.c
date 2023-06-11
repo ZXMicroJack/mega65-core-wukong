@@ -640,9 +640,9 @@ void main(void)
   // flash slots, and allow the user to select which core to load.
 
   // Holding ESC on boot will prevent flash menu starting
-  if (PEEK(0xD610) == 0x1b) {
+//  if (PEEK(0xD610) == 0x1b) {
     hard_exit();
-  }
+//  }
 
   probe_qspi_flash(); // sets slot_count
 
