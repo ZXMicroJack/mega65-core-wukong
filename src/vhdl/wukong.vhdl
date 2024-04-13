@@ -100,8 +100,13 @@ entity container is
          sd2MISO : in std_logic;
 
          -- Left and right headphone port audio
---         pwm_l : out std_logic;
---         pwm_r : out std_logic;
+         pwm_l : out std_logic;
+         pwm_r : out std_logic;
+
+	  -- Audio I2S
+         i2s_bclk : out std_logic;
+         i2s_lrclk : out std_logic;
+         i2s_dout : out std_logic;
 
          -- internal speaker
 --         pcspeaker_left : out std_logic;
@@ -896,6 +901,19 @@ begin
       );
   end generate;
 
+  -- zx3 audio i2s
+  i2scodec : entity work.i2s_sound
+  generic map( CLKMHZ => 50)
+  port map(
+    clk => ethclock,
+    audio_l => h_audio_left(19 downto 4),
+    audio_r => h_audio_right(19 downto 4),
+    i2s_bclk => i2s_bclk,
+    i2s_lrclk => i2s_lrclk,
+    i2s_dout => i2s_dout
+  );
+
+
   process (pixelclock,cpuclock) is
   begin
     vdac_sync_n <= '0';  -- no sync on green
@@ -953,7 +971,7 @@ begin
       -- MEGA65 PCB drives these lines.
       -- Note that the MEGA65 PCB lacks pull-ups on these lines, and relies on
       -- the connected disk drive(s) having pull-ups of their own.
-      -- Here is the truth table for behaviour with a pull-up on the pin:
+      -- Here is the truth table for behavipour with a pull-up on the pin:
       -- +----+-----++----+
       -- | _o | _en || _i |
       -- +----+-----++----+
@@ -1009,11 +1027,13 @@ begin
         fb_poty <= iec_clk_i;
       end if;
 
---      pwm_l <= pwm_l_drive;
---      pwm_r <= pwm_r_drive;
+      pwm_l <= pwm_l_drive;
+      pwm_r <= pwm_r_drive;
 --      pcspeaker_left <= pcspeaker_left_drive;
       
     end if;
+
+
 
     h_audio_right <= audio_right;
     h_audio_right <= audio_left;
