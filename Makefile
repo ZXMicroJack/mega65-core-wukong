@@ -129,6 +129,9 @@ FREEZER_FILES= \
 	$(SDCARD_DIR)/SPRITED.M65 \
 	$(SDCARD_DIR)/ROMLOAD.M65
 
+#allbut:	$(SDCARD_DIR)/MEGA65.D81 $(TOOLDIR)/monitor_load $(TOOLDIR)/mega65_ftp $(TOOLDIR)/monitor_save $(BINDIR)/wukong.mcs freezer_files
+allbut:	$(BINDIR)/wukong.mcs
+
 all:	$(SDCARD_DIR)/MEGA65.D81 $(BINDIR)/mega65r2.mcs $(BINDIR)/mega65r3.mcs $(BINDIR)/nexys4.mcs $(BINDIR)/nexys4ddr-widget.mcs $(BINDIR)/megaphoner1.mcs $(TOOLDIR)/monitor_load $(TOOLDIR)/mega65_ftp $(TOOLDIR)/monitor_save freezer_files
 
 # phony target to force submodule builds
