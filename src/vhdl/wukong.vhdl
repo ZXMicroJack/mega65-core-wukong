@@ -484,6 +484,7 @@ begin
         fref        => 50.0
         )
         port map (
+            select_44100 => '0',
             ref_rst   => reset_high,
             ref_clk   => CLK_IN,
             pcm_rst   => pcm_rst,
@@ -541,7 +542,7 @@ begin
             port map (
                 rst     => reset_high,
                 clk     => clock27,
-                clk_x5  => clock135p,
+                clk_x10  => clock135p,
                 d       => tmds(i),
                 out_p   => TMDS_data_p(i),
                 out_n   => TMDS_data_n(i)
@@ -551,7 +552,7 @@ begin
         port map (
             rst     => reset_high,
             clk     => clock27,
-            clk_x5  => clock135p,
+            clk_x10 => clock135p,
             d       => "0000011111",
             out_p   => TMDS_clk_p,
             out_n   => TMDS_clk_n
@@ -574,7 +575,9 @@ begin
         disco_led_val => disco_led_val,
         
         powerled => '1',
-        flopled => flopled_drive,
+        flopled0 => flopled_drive,
+        flopled2 => '0',
+        flopsd => '0',
         flopmotor => flopmotor_drive,
             
 --      kio8 => kb_io0,
